@@ -18,13 +18,14 @@
         </elementProp>
       </ThreadGroup>
       <hashTree>
-        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager">
+        <CookieManager guiclass="CookiePanel" testclass="CookieManager" testname="HTTP Cookie Manager" enabled="false">
           <collectionProp name="CookieManager.cookies"/>
           <boolProp name="CookieManager.clearEachIteration">true</boolProp>
           <boolProp name="CookieManager.controlledByThreadGroup">false</boolProp>
         </CookieManager>
         <hashTree/>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get login action id">
+          <stringProp name="TestPlan.comments">For getting the Next.js action id for logging in (that can change throughout deployments)</stringProp>
           <stringProp name="HTTPSampler.domain">ton-texter.de</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -37,7 +38,7 @@
           </elementProp>
         </HTTPSamplerProxy>
         <hashTree>
-          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regular Expression Extractor">
+          <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regex login_action_id">
             <stringProp name="RegexExtractor.useHeaders">false</stringProp>
             <stringProp name="RegexExtractor.refname">login_action_id</stringProp>
             <stringProp name="RegexExtractor.regex">\$ACTION_ID_([a-f0-9]{40})</stringProp>
@@ -45,7 +46,6 @@
             <stringProp name="RegexExtractor.default"></stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             <stringProp name="RegexExtractor.match_number"></stringProp>
-            <stringProp name="TestPlan.comments">Cookie must be extracted manually because jmeter didn&apos;t save it due to &quot;http code 303 missing location header&quot;</stringProp>
           </RegexExtractor>
           <hashTree/>
           <DebugPostProcessor guiclass="TestBeanGUI" testclass="DebugPostProcessor" testname="Debug PostProcessor">
@@ -94,6 +94,7 @@
           <hashTree/>
         </hashTree>
         <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Login">
+          <stringProp name="TestPlan.comments">Authenticate to get cookie for further requests</stringProp>
           <stringProp name="HTTPSampler.domain">ton-texter.de</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -163,7 +164,7 @@
             <stringProp name="RegexExtractor.default"></stringProp>
             <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
             <stringProp name="RegexExtractor.match_number"></stringProp>
-            <stringProp name="TestPlan.comments">Cookie must be extracted manually because jmeter didn&apos;t save it due to &quot;http code 303 missing location header&quot;</stringProp>
+            <stringProp name="TestPlan.comments">Cookie must be extracted manually because JMeter didn&apos;t save it in the cookie manager, probably due to the &quot;http code 303 missing location header&quot; error</stringProp>
           </RegexExtractor>
           <hashTree/>
           <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
@@ -201,10 +202,12 @@
               </value>
             </objProp>
             <stringProp name="filename"></stringProp>
+            <stringProp name="TestPlan.comments">&quot;Failed login&quot; can be ignored. JMeter expects an irrelevant location header (no need for the redirect).</stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Transcripts">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get all transcripts">
+          <stringProp name="TestPlan.comments">Fetch all user transcripts</stringProp>
           <stringProp name="HTTPSampler.domain">ton-texter.de</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -224,14 +227,14 @@
             <boolProp name="CookieManager.controlledByThreadGroup">true</boolProp>
           </CookieManager>
           <hashTree/>
-          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
+          <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager">
             <collectionProp name="HeaderManager.headers">
               <elementProp name="" elementType="Header">
                 <stringProp name="Header.name">Cookie</stringProp>
                 <stringProp name="Header.value">${auth_token}</stringProp>
               </elementProp>
             </collectionProp>
-            <stringProp name="TestPlan.comments">Cookie must be set manually because jmeter didn&apos;t save it due to &quot;http code 303 missing location header&quot;</stringProp>
+            <stringProp name="TestPlan.comments">Cookie must be set manually because JMeter didn&apos;t save it in the cookie manager, probably due to the &quot;http code 303 missing location header&quot; error</stringProp>
           </HeaderManager>
           <hashTree/>
           <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree">
@@ -272,7 +275,7 @@
           </ResultCollector>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Presigned URL">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Get presigned S3 URL">
           <stringProp name="HTTPSampler.domain">ton-texter.de</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
@@ -383,7 +386,7 @@
           </ResultCollector>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Upload File">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Upload file to S3">
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
           <stringProp name="HTTPSampler.path">${upload_url}</stringProp>
@@ -450,7 +453,8 @@
           </ResultCollector>
           <hashTree/>
         </hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create Transcript entry">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Create transcript entry">
+          <stringProp name="TestPlan.comments">After upload process is completed, a transcript entry needs to be created</stringProp>
           <stringProp name="HTTPSampler.domain">ton-texter.de</stringProp>
           <stringProp name="HTTPSampler.port">443</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
