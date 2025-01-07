@@ -6,3 +6,6 @@
 *.mp3
 *.opus
 *.m4a
+
+# Other
+.DS_Store
