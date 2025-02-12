@@ -45,7 +45,7 @@
             <RegexExtractor guiclass="RegexExtractorGui" testclass="RegexExtractor" testname="Regex login_action_id">
               <stringProp name="RegexExtractor.useHeaders">false</stringProp>
               <stringProp name="RegexExtractor.refname">login_action_id</stringProp>
-              <stringProp name="RegexExtractor.regex">\$ACTION_ID_([a-f0-9]{40})</stringProp>
+              <stringProp name="RegexExtractor.regex">\$ACTION_ID_([a-f0-9]+)</stringProp>
               <stringProp name="RegexExtractor.template">$1$</stringProp>
               <stringProp name="RegexExtractor.default"></stringProp>
               <boolProp name="RegexExtractor.default_empty_value">false</boolProp>
