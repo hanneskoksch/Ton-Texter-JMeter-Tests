@@ -22,3 +22,12 @@ This test logs in to Ton-Texter as a test user, uploads a file (located in `test
 
 This test can be integrated in several places to automatically test and confirm the functionality of the entire Ton-Texter workflow, e.g. after a new build. 
 
+## Related Repositories
+
+| Service                                                      | Description                                                  | Scope                 |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | --------------------- |
+| [Ton-Texter](https://github.com/ns144/Cloud-Transcription-Service) | The Next.js application.          | Next.js |
+| [Cloud-Transcription-Service](https://github.com/ns144/Cloud-Transcription-Service) | AWS cloud infrastructure via Terraform and Lambdas.          | Transcription Service |
+| [Transcription-Application](https://github.com/ns144/Transcription-Application) | The python application that does the transcription and the speaker diarization. | Transcription Service |
+| [Cloud-Transcription-Machine](https://github.com/ns144/Cloud-Transcription-Machine) | The EC2 machine setup.                                       | Transcription Service |
+| [Ton-Texter-JMeter-Tests](https://github.com/hanneskoksch/Ton-Texter-JMeter-Tests) | JMeter load and quick tests of the Ton-Texter application.   | End-to-end            |
